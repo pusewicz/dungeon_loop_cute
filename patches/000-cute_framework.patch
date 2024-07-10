@@ -1,0 +1,35 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index b7c92f8c..346cc215 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -28,9 +28,9 @@ function(fetch_content_with_folder _name)
+ endfunction()
+ 
+ # Todo - Fix how turning some of these off breaks the build.
+-option(CF_FRAMEWORK_STATIC "Build static library for Cute Framework." ON)
+-option(CF_FRAMEWORK_BUILD_TESTS "Build the cute framework unit tests." ON)
+-option(CF_FRAMEWORK_BUILD_SAMPLES "Build the cute framework sample programs." ON)
++option(CF_FRAMEWORK_STATIC "Build static library for Cute Framework." OFF)
++option(CF_FRAMEWORK_BUILD_TESTS "Build the cute framework unit tests." OFF)
++option(CF_FRAMEWORK_BUILD_SAMPLES "Build the cute framework sample programs." OFF)
+ 
+ # Platform detection.
+ if(CMAKE_SYSTEM_NAME MATCHES "Emscripten")
+@@ -115,7 +115,7 @@ set(CF_SRCS
+ 	src/internal/yyjson.c
+ 
+ 	libraries/cimgui/imgui/backends/imgui_impl_sdl.cpp
+-	
++
+ 	libraries/cimgui/imgui/imgui.cpp
+ 	libraries/cimgui/imgui/imgui_demo.cpp
+ 	libraries/cimgui/imgui/imgui_draw.cpp
+@@ -347,7 +347,7 @@ elseif(APPLE)
+ endif()
+ 
+ # Link up all dependencies to Cute.
+-target_link_libraries(cute PUBLIC ${CF_LINK_LIBS})
++target_link_libraries(cute PRIVATE ${CF_LINK_LIBS})
+ 
+ # Cute unit tests executable (optional, defaulted to also build).
+ if (CF_FRAMEWORK_BUILD_TESTS)

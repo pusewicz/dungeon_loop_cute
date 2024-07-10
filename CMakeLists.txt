@@ -6,8 +6,8 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_OSX_DEPLOYMENT_TARGET 13.0)
 
 # Verify that we have a new enough compiler
-if("${CMAKE_Swift_COMPILER_VERSION}" VERSION_LESS 5.9)
-  message(FATAL_ERROR "Bidirectional C++ Interop requires Swift 5.9 or greater. Have ${CMAKE_Swift_COMPILER_VERSION}")
+if("${CMAKE_Swift_COMPILER_VERSION}" VERSION_LESS 5.10)
+  message(FATAL_ERROR "Bidirectional C++ Interop requires Swift 5.10 or greater. Have ${CMAKE_Swift_COMPILER_VERSION}")
 endif()
 
 if(NOT "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang" AND
@@ -33,6 +33,10 @@ include(FetchContent)
 FetchContent_Declare(
   cute
   GIT_REPOSITORY https://github.com/RandyGaul/cute_framework
+  GIT_TAG 1.0
+  GIT_PROGRESS TRUE
+  # Apply patch to Cute Framework to make it work with Swift.
+  PATCH_COMMAND git co CMakeLists.txt && git apply ../../../patches/000-cute_framework.patch
 )
 FetchContent_MakeAvailable(cute)
 

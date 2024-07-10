@@ -1,0 +1,4 @@
+framework module cute {
+  umbrella header "cute.h"
+  export *
+}
